@@ -127,7 +127,7 @@ const HoverPriceCard: React.FC = () => {
                   {price.title}
                 </CardTitle>
 
-                <CardDescription className="text-base text-slate-400">
+                <CardDescription className="text-base dark:text-slate-400 text-gray-900">
                   {price.description}
                 </CardDescription>
               </CardHeader>
@@ -148,11 +148,13 @@ const HoverPriceCard: React.FC = () => {
                   </motion.span>
 
                   {price.title !== "Starter" && (
-                    <span className="text-lg text-slate-400 ml-1">/month</span>
+                    <span className="text-lg dark:text-slate-400 text-slate-900 ml-1">
+                      /month
+                    </span>
                   )}
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-3 dark:text-slate-300 text-gray-900">
                   {price.features.map((feature, featureIdx) => (
                     <motion.div
                       key={feature}
@@ -164,7 +166,9 @@ const HoverPriceCard: React.FC = () => {
                       }}
                     >
                       <CheckCircle2 className="text-green-500 h-5 w-5 flex-shrink-0" />
-                      <p className="text-sm text-slate-300">{feature}</p>
+                      <p className="text-sm dark:text-slate-300 text-gray-900">
+                        {feature}
+                      </p>
                     </motion.div>
                   ))}
                 </div>

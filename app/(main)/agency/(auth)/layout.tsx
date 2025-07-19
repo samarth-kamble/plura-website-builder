@@ -1,9 +1,9 @@
 import React from "react";
 
-const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
+const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="h-full flex items-center justify-center">{children}</div>
+    <div className="flex h-screen items-center justify-center">{children}</div>
   );
 };
 
-export default Layout;
+export default AuthLayout;

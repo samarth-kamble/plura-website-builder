@@ -1,13 +1,8 @@
-import React from "react";
 import { SignUp } from "@clerk/nextjs";
-import { constructMetadata } from "@/lib/utils";
+import React from "react";
 
-const Page: React.FC = ({}) => {
-  return <SignUp path="/agency/sign-up" routing="path" />;
+const SignUpPage = () => {
+  return <SignUp />;
 };
 
-export default Page;
-
-export const metadata = constructMetadata({
-  title: "Sign Up - Plura",
-});
+export default SignUpPage;
