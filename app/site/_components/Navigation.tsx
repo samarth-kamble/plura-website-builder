@@ -50,20 +50,18 @@ const Navigation = () => {
         {/* Logo Section */}
         <aside className="flex items-center gap-3 group">
           <div className="relative">
+            <div className="absolute inset-0 bg-[#d97757] rounded-xl blur-lg opacity-50"></div>
             <div className="absolute inset-0 bg-gradient-to-r from-gray-300 to-gray-400 dark:from-orange-400/20 dark:to-orange-600/20 rounded-full blur-sm opacity-10 group-hover:opacity-20 transition-opacity duration-300" />
             <Image
               src={logoImage}
-              width={36}
-              height={36}
               alt="Plura Logo"
               className="relative z-10 transition-transform duration-300 group-hover:scale-110"
             />
           </div>
           <div className="relative">
-            <span className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-[#d97757] via-[#d97757]/80 to-[#d97757]/60 bg-clip-text text-transparent">
               Plura
             </span>
-            <Sparkles className="absolute -top-1 -right-2 h-3 w-3 text-gray-500 dark:text-orange-500/60 opacity-40 group-hover:opacity-70 transition-opacity duration-300" />
           </div>
         </aside>
 
