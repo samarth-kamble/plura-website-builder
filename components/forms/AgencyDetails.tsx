@@ -94,8 +94,6 @@ const AgencyDetails = ({ data }: AgencyDetails) => {
 
   const handleSubmit = async (values: z.infer<typeof AgencyDetailsSchema>) => {
     try {
-      // Call your API to create or update the agency details
-      // await createOrUpdateAgency(values);
       toast.success("Agency details saved successfully!");
       router.push("/agency");
     } catch {
@@ -193,371 +191,373 @@ const AgencyDetails = ({ data }: AgencyDetails) => {
 
             <CardContent className="p-10">
               <Form {...form}>
-                <div className="space-y-12">
-                  {/* Enhanced Logo Upload Section */}
-                  <div className="text-center">
-                    <FormField
-                      disabled={isLoading}
-                      control={form.control}
-                      name="agencyLogo"
-                      render={({ field }) => (
-                        <FormItem>
-                          <div className="relative inline-block">
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#d97757]/20 to-blue-500/20 rounded-2xl blur-xl"></div>
-                            <div className="relative rounded-2xl p-8 border-2 border-dashed border-[#d97757]/30 hover:border-[#d97757]/50 transition-all duration-300">
-                              <div className="mb-4">
-                                <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#d97757]/10 border border-[#d97757]/20">
-                                  <Upload className="h-5 w-5 text-[#d97757]" />
-                                  <FormLabel className="text-lg font-semibold text-[#d97757] cursor-pointer">
-                                    Agency Logo
-                                  </FormLabel>
-                                </div>
-                              </div>
-                              <FormControl>
-                                <div className="max-w-md mx-auto">
-                                  <FileUpload
-                                    apiEndpoint="agencyLogo"
-                                    onChange={field.onChange}
-                                    value={field.value}
-                                  />
-                                </div>
-                              </FormControl>
-                              <p className="text-sm text-muted-foreground mt-4 max-w-sm mx-auto">
-                                Upload a high-quality logo that represents your
-                                agency. Recommended size: 400x400px
-                              </p>
-                            </div>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  {/* Enhanced Two Column Layout */}
-                  <div className="grid lg:grid-cols-2 gap-16">
-                    {/* Left Column - Enhanced Basic Info */}
-                    <div className="space-y-8">
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#d97757]/10 to-transparent rounded-xl blur-sm"></div>
-                        <div className="relative bg-gradient-to-r from-[#d97757]/5 to-transparent rounded-xl p-6 border-l-4 border-[#d97757]">
-                          <h3 className="text-2xl font-bold mb-2 flex items-center gap-3">
-                            <Building2 className="h-6 w-6 text-[#d97757]" />
-                            Basic Information
-                          </h3>
-                          <p className="text-muted-foreground">
-                            Essential details about your agency
-                          </p>
-                        </div>
-                      </div>
-
+                <form onSubmit={form.handleSubmit(handleSubmit)}>
+                  <div className="space-y-12">
+                    {/* Enhanced Logo Upload Section */}
+                    <div className="text-center">
                       <FormField
                         disabled={isLoading}
                         control={form.control}
-                        name="name"
+                        name="agencyLogo"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="flex items-center gap-2 text-base font-semibold">
-                              <Building2 className="h-4 w-4 text-[#d97757]" />
-                              Agency Name
-                            </FormLabel>
-                            <FormControl>
-                              <div className="relative">
-                                <Input
-                                  {...field}
-                                  placeholder="Enter your agency name"
-                                  className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-[#d97757]/50 focus:border-[#d97757] transition-all duration-300 rounded-xl"
-                                />
-                                <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-200/50 dark:ring-gray-700/50 pointer-events-none"></div>
-                              </div>
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <FormField
-                        disabled={isLoading}
-                        control={form.control}
-                        name="companyEmail"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="flex items-center gap-2 text-base font-semibold">
-                              <Mail className="h-4 w-4 text-[#d97757]" />
-                              Email Address
-                            </FormLabel>
-                            <FormControl>
-                              <div className="relative">
-                                <Input
-                                  {...field}
-                                  readOnly
-                                  placeholder="company@example.com"
-                                  className="h-14 text-base pl-4 bg-gray-50 dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-not-allowed"
-                                />
-                                <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                                  <CheckCircle className="h-5 w-5 text-green-500" />
-                                </div>
-                              </div>
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <FormField
-                        disabled={isLoading}
-                        control={form.control}
-                        name="companyPhone"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="flex items-center gap-2 text-base font-semibold">
-                              <Phone className="h-4 w-4 text-[#d97757]" />
-                              Phone Number
-                            </FormLabel>
-                            <FormControl>
-                              <div className="relative">
-                                <Input
-                                  placeholder="+1 (555) 123-4567"
-                                  {...field}
-                                  className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-[#d97757]/50 focus:border-[#d97757] transition-all duration-300 rounded-xl"
-                                />
-                                <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-200/50 dark:ring-gray-700/50 pointer-events-none"></div>
-                              </div>
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <FormField
-                        disabled={isLoading}
-                        control={form.control}
-                        name="whiteLabel"
-                        render={({ field }) => {
-                          return (
-                            <FormItem className="relative">
-                              <div className="absolute inset-0 bg-gradient-to-r from-[#d97757]/10 to-purple-500/10 rounded-2xl blur-sm"></div>
-                              <div className="relative flex flex-row items-center justify-between rounded-2xl border-2 border-dashed border-[#d97757]/30 bg-gradient-to-r from-[#d97757]/5 to-transparent p-8 hover:border-[#d97757]/50 transition-all duration-300">
-                                <div>
-                                  <FormLabel className="text-lg font-bold flex items-center gap-3 mb-2">
-                                    <div className="p-2 rounded-lg bg-[#d97757]/20">
-                                      <Zap className="h-5 w-5 text-[#d97757]" />
-                                    </div>
-                                    White Label Mode
-                                  </FormLabel>
-                                  <FormDescription className="text-base font-medium">
-                                    Enable white labeling to display your agency
-                                    logo across all sub-accounts by default.
-                                  </FormDescription>
+                            <div className="relative inline-block">
+                              <div className="absolute inset-0 bg-gradient-to-r from-[#d97757]/20 to-blue-500/20 rounded-2xl blur-xl"></div>
+                              <div className="relative rounded-2xl p-8 border-2 border-dashed border-[#d97757]/30 hover:border-[#d97757]/50 transition-all duration-300">
+                                <div className="mb-4">
+                                  <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#d97757]/10 border border-[#d97757]/20">
+                                    <Upload className="h-5 w-5 text-[#d97757]" />
+                                    <FormLabel className="text-lg font-semibold text-[#d97757] cursor-pointer">
+                                      Agency Logo
+                                    </FormLabel>
+                                  </div>
                                 </div>
                                 <FormControl>
-                                  <div className="relative">
-                                    <Switch
-                                      checked={field.value}
-                                      onCheckedChange={field.onChange}
-                                      className="data-[state=checked]:bg-[#d97757] scale-125"
+                                  <div className="max-w-md mx-auto">
+                                    <FileUpload
+                                      apiEndpoint="agencyLogo"
+                                      onChange={field.onChange}
+                                      value={field.value}
                                     />
-                                    {field.value && (
-                                      <div className="absolute -top-2 -right-2">
-                                        <div className="h-3 w-3 bg-green-500 rounded-full animate-pulse"></div>
-                                      </div>
-                                    )}
                                   </div>
                                 </FormControl>
+                                <p className="text-sm text-muted-foreground mt-4 max-w-sm mx-auto">
+                                  Upload a high-quality logo that represents
+                                  your agency. Recommended size: 400x400px
+                                </p>
                               </div>
-                            </FormItem>
-                          );
-                        }}
+                            </div>
+                          </FormItem>
+                        )}
                       />
                     </div>
 
-                    {/* Right Column - Enhanced Location Info */}
-                    <div className="space-y-8">
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-transparent rounded-xl blur-sm"></div>
-                        <div className="relative bg-gradient-to-r from-blue-500/5 to-transparent rounded-xl p-6 border-l-4 border-blue-500">
-                          <h3 className="text-2xl font-bold mb-2 flex items-center gap-3">
-                            <MapPin className="h-6 w-6 text-blue-500" />
-                            Location Details
-                          </h3>
-                          <p className="text-muted-foreground">
-                            Where your agency is located
-                          </p>
+                    {/* Enhanced Two Column Layout */}
+                    <div className="grid lg:grid-cols-2 gap-16">
+                      {/* Left Column - Enhanced Basic Info */}
+                      <div className="space-y-8">
+                        <div className="relative">
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#d97757]/10 to-transparent rounded-xl blur-sm"></div>
+                          <div className="relative bg-gradient-to-r from-[#d97757]/5 to-transparent rounded-xl p-6 border-l-4 border-[#d97757]">
+                            <h3 className="text-2xl font-bold mb-2 flex items-center gap-3">
+                              <Building2 className="h-6 w-6 text-[#d97757]" />
+                              Basic Information
+                            </h3>
+                            <p className="text-muted-foreground">
+                              Essential details about your agency
+                            </p>
+                          </div>
                         </div>
-                      </div>
 
-                      <FormField
-                        disabled={isLoading}
-                        control={form.control}
-                        name="address"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="flex items-center gap-2 text-base font-semibold">
-                              <MapPin className="h-4 w-4 text-blue-500" />
-                              Street Address
-                            </FormLabel>
-                            <FormControl>
-                              <div className="relative">
-                                <Input
-                                  placeholder="123 Business Street"
-                                  {...field}
-                                  className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500/50 focus:border-blue-500 transition-all duration-300 rounded-xl"
-                                />
-                                <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-200/50 dark:ring-gray-700/50 pointer-events-none"></div>
-                              </div>
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <div className="grid grid-cols-2 gap-6">
                         <FormField
                           disabled={isLoading}
                           control={form.control}
-                          name="city"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-base font-semibold">
-                                City
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="New York"
-                                  {...field}
-                                  className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500/50 focus:border-blue-500 transition-all duration-300 rounded-xl"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          disabled={isLoading}
-                          control={form.control}
-                          name="state"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-base font-semibold">
-                                State/Province
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="NY"
-                                  {...field}
-                                  className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500/50 focus:border-blue-500 transition-all duration-300 rounded-xl"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-6">
-                        <FormField
-                          disabled={isLoading}
-                          control={form.control}
-                          name="zipCode"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-base font-semibold">
-                                Zip Code
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="10001"
-                                  {...field}
-                                  className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500/50 focus:border-blue-500 transition-all duration-300 rounded-xl"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          disabled={isLoading}
-                          control={form.control}
-                          name="country"
+                          name="name"
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel className="flex items-center gap-2 text-base font-semibold">
-                                <Globe className="h-4 w-4 text-blue-500" />
-                                Country
+                                <Building2 className="h-4 w-4 text-[#d97757]" />
+                                Agency Name
                               </FormLabel>
                               <FormControl>
-                                <Input
-                                  placeholder="United States"
-                                  {...field}
-                                  className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500/50 focus:border-blue-500 transition-all duration-300 rounded-xl"
-                                />
+                                <div className="relative">
+                                  <Input
+                                    {...field}
+                                    placeholder="Enter your agency name"
+                                    className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-[#d97757]/50 focus:border-[#d97757] transition-all duration-300 rounded-xl"
+                                  />
+                                  <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-200/50 dark:ring-gray-700/50 pointer-events-none"></div>
+                                </div>
                               </FormControl>
                               <FormMessage />
                             </FormItem>
                           )}
                         />
+
+                        <FormField
+                          disabled={isLoading}
+                          control={form.control}
+                          name="companyEmail"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="flex items-center gap-2 text-base font-semibold">
+                                <Mail className="h-4 w-4 text-[#d97757]" />
+                                Email Address
+                              </FormLabel>
+                              <FormControl>
+                                <div className="relative">
+                                  <Input
+                                    {...field}
+                                    readOnly
+                                    placeholder="company@example.com"
+                                    className="h-14 text-base pl-4 bg-gray-50 dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-not-allowed"
+                                  />
+                                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                                    <CheckCircle className="h-5 w-5 text-green-500" />
+                                  </div>
+                                </div>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          disabled={isLoading}
+                          control={form.control}
+                          name="companyPhone"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="flex items-center gap-2 text-base font-semibold">
+                                <Phone className="h-4 w-4 text-[#d97757]" />
+                                Phone Number
+                              </FormLabel>
+                              <FormControl>
+                                <div className="relative">
+                                  <Input
+                                    placeholder="+1 (555) 123-4567"
+                                    {...field}
+                                    className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-[#d97757]/50 focus:border-[#d97757] transition-all duration-300 rounded-xl"
+                                  />
+                                  <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-200/50 dark:ring-gray-700/50 pointer-events-none"></div>
+                                </div>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          disabled={isLoading}
+                          control={form.control}
+                          name="whiteLabel"
+                          render={({ field }) => {
+                            return (
+                              <FormItem className="relative">
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#d97757]/10 to-purple-500/10 rounded-2xl blur-sm"></div>
+                                <div className="relative flex flex-row items-center justify-between rounded-2xl border-2 border-dashed border-[#d97757]/30 bg-gradient-to-r from-[#d97757]/5 to-transparent p-8 hover:border-[#d97757]/50 transition-all duration-300">
+                                  <div>
+                                    <FormLabel className="text-lg font-bold flex items-center gap-3 mb-2">
+                                      <div className="p-2 rounded-lg bg-[#d97757]/20">
+                                        <Zap className="h-5 w-5 text-[#d97757]" />
+                                      </div>
+                                      White Label Mode
+                                    </FormLabel>
+                                    <FormDescription className="text-base font-medium">
+                                      Enable white labeling to display your
+                                      agency logo across all sub-accounts by
+                                      default.
+                                    </FormDescription>
+                                  </div>
+                                  <FormControl>
+                                    <div className="relative">
+                                      <Switch
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                        className="data-[state=checked]:bg-[#d97757] scale-125"
+                                      />
+                                      {field.value && (
+                                        <div className="absolute -top-2 -right-2">
+                                          <div className="h-3 w-3 bg-green-500 rounded-full animate-pulse"></div>
+                                        </div>
+                                      )}
+                                    </div>
+                                  </FormControl>
+                                </div>
+                              </FormItem>
+                            );
+                          }}
+                        />
                       </div>
 
-                      {data?.id && (
+                      {/* Right Column - Enhanced Location Info */}
+                      <div className="space-y-8">
                         <div className="relative">
-                          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-[#d97757]/10 rounded-2xl blur-sm"></div>
-                          <div className="relative bg-gradient-to-r from-purple-500/5 via-transparent to-[#d97757]/5 p-8 rounded-2xl border-2 border-dashed border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                            <FormLabel className="text-xl font-bold flex items-center gap-3 mb-4">
-                              <div className="p-2 rounded-lg bg-purple-500/20">
-                                <Target className="h-6 w-6 text-purple-500" />
-                              </div>
-                              Agency Goal
-                            </FormLabel>
-                            <FormDescription className="mb-6 text-base font-medium">
-                              Set an ambitious goal for your agency. As your
-                              business grows, don&apos;t forget to raise the
-                              bar!
-                            </FormDescription>
-                            <NumberInput
-                              defaultValue={data?.goal}
-                              onValueChange={async (val) => {
-                                if (!data?.id) return;
-                                await updateAgencyDetails(data.id, {
-                                  goal: val,
-                                });
-                                await saveActivityLogsNotification({
-                                  agencyId: data.id,
-                                  description: `Updated the agency goal to ${val} Sub Accounts`,
-                                  subAccountId: undefined,
-                                });
-                                router.refresh();
-                              }}
-                              min={1}
-                              className="bg-white/70 dark:bg-gray-800/70 !border-2 !border-purple-500/30 hover:!border-purple-500/50 h-14 text-base rounded-xl"
-                              placeholder="Enter your sub-account goal"
-                            />
+                          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-transparent rounded-xl blur-sm"></div>
+                          <div className="relative bg-gradient-to-r from-blue-500/5 to-transparent rounded-xl p-6 border-l-4 border-blue-500">
+                            <h3 className="text-2xl font-bold mb-2 flex items-center gap-3">
+                              <MapPin className="h-6 w-6 text-blue-500" />
+                              Location Details
+                            </h3>
+                            <p className="text-muted-foreground">
+                              Where your agency is located
+                            </p>
                           </div>
                         </div>
-                      )}
-                    </div>
-                  </div>
 
-                  {/* Enhanced Submit Button */}
-                  <div className="flex justify-center pt-8 border-t-2 border-gray-200/50 dark:border-gray-700/50">
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#d97757] to-[#d97757]/70 rounded-2xl blur-lg opacity-50"></div>
-                      <Button
-                        type="submit"
-                        disabled={isLoading}
-                        onClick={form.handleSubmit(handleSubmit)}
-                        className="relative h-16 px-12 bg-gradient-to-r from-[#d97757] to-[#d97757]/80 hover:from-[#d97757]/90 hover:to-[#d97757]/70 text-white font-bold text-lg min-w-[250px] rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-                      >
-                        {isLoading ? (
-                          <Loading />
-                        ) : (
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="h-5 w-5" />
-                            Save Agency Information
+                        <FormField
+                          disabled={isLoading}
+                          control={form.control}
+                          name="address"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="flex items-center gap-2 text-base font-semibold">
+                                <MapPin className="h-4 w-4 text-blue-500" />
+                                Street Address
+                              </FormLabel>
+                              <FormControl>
+                                <div className="relative">
+                                  <Input
+                                    placeholder="123 Business Street"
+                                    {...field}
+                                    className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500/50 focus:border-blue-500 transition-all duration-300 rounded-xl"
+                                  />
+                                  <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-200/50 dark:ring-gray-700/50 pointer-events-none"></div>
+                                </div>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <div className="grid grid-cols-2 gap-6">
+                          <FormField
+                            disabled={isLoading}
+                            control={form.control}
+                            name="city"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-base font-semibold">
+                                  City
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="New York"
+                                    {...field}
+                                    className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500/50 focus:border-blue-500 transition-all duration-300 rounded-xl"
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            disabled={isLoading}
+                            control={form.control}
+                            name="state"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-base font-semibold">
+                                  State/Province
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="NY"
+                                    {...field}
+                                    className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500/50 focus:border-blue-500 transition-all duration-300 rounded-xl"
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-6">
+                          <FormField
+                            disabled={isLoading}
+                            control={form.control}
+                            name="zipCode"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-base font-semibold">
+                                  Zip Code
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="10001"
+                                    {...field}
+                                    className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500/50 focus:border-blue-500 transition-all duration-300 rounded-xl"
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            disabled={isLoading}
+                            control={form.control}
+                            name="country"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="flex items-center gap-2 text-base font-semibold">
+                                  <Globe className="h-4 w-4 text-blue-500" />
+                                  Country
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="United States"
+                                    {...field}
+                                    className="h-14 text-base pl-4 bg-white/50 dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500/50 focus:border-blue-500 transition-all duration-300 rounded-xl"
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+
+                        {data?.id && (
+                          <div className="relative">
+                            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-[#d97757]/10 rounded-2xl blur-sm"></div>
+                            <div className="relative bg-gradient-to-r from-purple-500/5 via-transparent to-[#d97757]/5 p-8 rounded-2xl border-2 border-dashed border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+                              <FormLabel className="text-xl font-bold flex items-center gap-3 mb-4">
+                                <div className="p-2 rounded-lg bg-purple-500/20">
+                                  <Target className="h-6 w-6 text-purple-500" />
+                                </div>
+                                Agency Goal
+                              </FormLabel>
+                              <FormDescription className="mb-6 text-base font-medium">
+                                Set an ambitious goal for your agency. As your
+                                business grows, don&apos;t forget to raise the
+                                bar!
+                              </FormDescription>
+                              <NumberInput
+                                defaultValue={data?.goal}
+                                onValueChange={async (val) => {
+                                  if (!data?.id) return;
+                                  await updateAgencyDetails(data.id, {
+                                    goal: val,
+                                  });
+                                  await saveActivityLogsNotification({
+                                    agencyId: data.id,
+                                    description: `Updated the agency goal to ${val} Sub Accounts`,
+                                    subAccountId: undefined,
+                                  });
+                                  router.refresh();
+                                }}
+                                min={1}
+                                className="bg-white/70 dark:bg-gray-800/70 !border-2 !border-purple-500/30 hover:!border-purple-500/50 h-14 text-base rounded-xl"
+                                placeholder="Enter your sub-account goal"
+                              />
+                            </div>
                           </div>
                         )}
-                      </Button>
+                      </div>
+                    </div>
+
+                    {/* Enhanced Submit Button */}
+                    <div className="flex justify-center pt-8 border-t-2 border-gray-200/50 dark:border-gray-700/50">
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#d97757] to-[#d97757]/70 rounded-2xl blur-lg opacity-50"></div>
+                        <Button
+                          type="submit"
+                          disabled={isLoading}
+                          className="relative h-16 px-12 bg-gradient-to-r from-[#d97757] to-[#d97757]/80 hover:from-[#d97757]/90 hover:to-[#d97757]/70 text-white font-bold text-lg min-w-[250px] rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                        >
+                          {isLoading ? (
+                            <Loading />
+                          ) : (
+                            <div className="flex items-center gap-3">
+                              <CheckCircle className="h-5 w-5" />
+                              Save Agency Information
+                            </div>
+                          )}
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </form>
               </Form>
 
               {/* Enhanced Danger Zone */}
